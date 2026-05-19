@@ -26,9 +26,9 @@ jobs:
           rustup target install x86_64-apple-darwin
           cargo install cargo-lipo
       
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
-          submodules: 'true'
+          submodules: 'recursive'
           
       - name: Build xcframework
         run: |
@@ -61,7 +61,7 @@ jobs:
           echo "    .target(name: \"T2SKitC\", publicHeadersPath: \".\")," >> Package.swift
           echo "    .binaryTarget(" >> Package.swift
           echo "      name: \"Tun2SocksFramework\"," >> Package.swift
-          echo "      url: \"https://github.com/AppleClash/T2SKit/releases/download/${{ github.event.inputs.version }}/Tun2SocksFramework.xcframework.zip\"," >> Package.swift
+          echo "      url: \"https://github.com/idavy/T2SKit/releases/download/${{ github.event.inputs.version }}/Tun2SocksFramework.xcframework.zip\"," >> Package.swift
           echo "      checksum: \"${{ env.FILE_CHECKSUM }}\"" >> Package.swift
           echo "    )" >> Package.swift
           echo "  ]" >> Package.swift
@@ -71,7 +71,7 @@ jobs:
         run: |
           git config --local user.email "github-actions@users.noreply.github.com"
           git config --local user.name "github-actions"
-          git config remote.origin.url "https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/AppleClash/T2SKit.git"
+          git config remote.origin.url "https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/idavy/T2SKit.git"
           git add ./Package.swift
           git commit -m "Release ${{ github.event.inputs.version }}!!!" -a
           git push origin main
